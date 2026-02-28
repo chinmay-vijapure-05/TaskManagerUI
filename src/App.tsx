@@ -1,28 +1,25 @@
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-import api from "./api/axios";
-import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import Projects  from "./pages/Projects";
 
 function App() {
-  // remote client call to backend
-  useEffect(() => {
-    api
-      .get("/actuator/health")
-      .then((res) => console.log(res.data))
-      .catch((err) => console.error(err));
-  }, []);
-
-  // returns
-  return <h1>Task Manager UI</h1>;
-
-  // return (
-  //   <BrowserRouter>
-  //     <Routes>
-  //       <Route path="/" element={<h1>Home</h1>} />
-  //       <Route path="/login" element={<h1>Login Page</h1>} />
-  //       <Route path="/dashboard" element={<h1>Dashboard</h1>} />
-  //     </Routes>
-  //   </BrowserRouter>
-  // );
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route 
+            path="/projects"
+            element={
+                <Projects />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
 }
 
 export default App;
