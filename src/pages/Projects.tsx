@@ -34,7 +34,6 @@ const Projects = () => {
   const handleDelete = async (id: number) => {
     await deleteProject(id);
 
-    // If the deleted project was selected, clear it
     if (selectedProject?.id === id) {
       setSelectedProject(null);
     }
@@ -43,45 +42,89 @@ const Projects = () => {
   };
 
   return (
-    <div>
-      <h2>Projects</h2>
+    <div className="projects-layout">
+      <section className="card">
+        <div className="projects-header">
+          <h2 className="section-title">Projects</h2>
+        </div>
 
-      <form onSubmit={handleCreate}>
-        <input
-          type="text"
-          placeholder="Project Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <button type="submit">Create</button>
-      </form>
+        <form className="form-grid" onSubmit={handleCreate}>
+          <div className="field">
+            <label htmlFor="project-name">Name</label>
+            <input
+              id="project-name"
+              className="input"
+              type="text"
+              placeholder="Project Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
-      <ul>
-        {projects.map((project) => (
-          <li key={project.id}>
-            <strong
-              style={{ cursor: "pointer" }}
+          <div className="field">
+            <label htmlFor="project-description">Description</label>
+            <input
+              id="project-description"
+              className="input"
+              type="text"
+              placeholder="Short description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+
+          <button className="btn btn-primary" type="submit">
+            Create project
+          </button>
+        </form>
+
+        <ul className="project-list">
+          {projects.map((project) => (
+            <li
+              key={project.id}
+              className="project-item"
               onClick={() => setSelectedProject(project)}
             >
-              {project.name}
-            </strong>
-            <button onClick={() => handleDelete(project.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+              <div>
+                <div className="project-name">{project.name}</div>
+                {project.description && (
+                  <div className="project-meta">{project.description}</div>
+                )}
+              </div>
+              <button
+                className="btn btn-danger"
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDelete(project.id);
+                }}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+          {projects.length === 0 && (
+            <li className="muted">No projects yet. Create your first one.</li>
+          )}
+        </ul>
+      </section>
 
-      {selectedProject && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Selected Project: {selectedProject.name}</h3>
-          <Tasks projectId={selectedProject.id} />
-        </div>
-      )}
+      <section className="card tasks-section">
+        {selectedProject ? (
+          <>
+            <div className="projects-header">
+              <h3 className="section-title">
+                Tasks for {selectedProject.name}
+              </h3>
+            </div>
+            <Tasks projectId={selectedProject.id} />
+          </>
+        ) : (
+          <p className="muted">
+            Select a project on the left to view and manage its tasks.
+          </p>
+        )}
+      </section>
     </div>
   );
 };

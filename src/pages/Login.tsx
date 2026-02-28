@@ -13,7 +13,9 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      auth?.login(data.token, data.user);
+      // Some backends return the user object as `user`, others inline.
+      // Ensure we always store a truthy user so ProtectedRoute works.
+      auth?.login(data.token, data.user ?? data);
       navigate("/projects");
     } catch (error) {
       alert("Invalid credentials");
@@ -21,23 +23,43 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="email" 
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} 
-        />
-        <input 
-          type="password" 
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-        <button type="submit">Login</button>
-      </form>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div>
+          <h2 className="auth-title">Welcome back</h2>
+          <p className="auth-subtitle">Sign in to manage your projects.</p>
+        </div>
+
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="field">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              className="input"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="field">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              className="input"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button className="btn btn-primary" type="submit">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
