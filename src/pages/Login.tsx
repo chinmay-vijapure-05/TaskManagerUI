@@ -13,12 +13,20 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      // Some backends return the user object as `user`, others inline.
-      // Ensure we always store a truthy user so ProtectedRoute works.
       auth?.login(data.token, data.user ?? data);
       navigate("/projects");
     } catch (error) {
       alert("Invalid credentials");
+    }
+  };
+
+  const handleTestLogin = async () => {
+    try {
+      const data = await login("docker@test.com", "password123");
+      auth?.login(data.token, data.user ?? data);
+      navigate("/projects");
+    } catch (error) {
+      alert("Test login failed");
     }
   };
 
@@ -57,6 +65,20 @@ const Login = () => {
 
           <button className="btn btn-primary" type="submit">
             Login
+          </button>
+          <button
+            className="btn btn-ghost"
+            type="button"
+            onClick={handleTestLogin}
+          >
+            Test login (demo)
+          </button>
+          <button
+            className="btn btn-ghost"
+            type="button"
+            onClick={() => navigate("/register")}
+          >
+            Create an account
           </button>
         </form>
       </div>
