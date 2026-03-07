@@ -146,7 +146,401 @@ body {
   background: #f3f4f6;
 }
 
-/* -------- Chatbot -------- */
+.btn-danger {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-danger:hover {
+  background: #fecaca;
+}
+
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.app-nav {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0.75rem 0 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.35rem;
+}
+
+.app-nav-link {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.app-nav-link-active {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+/* Login page */
+.auth-page {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.auth-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.75rem 1.75rem 1.5rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.auth-subtitle {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Projects page */
+.projects-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.1fr) minmax(0, 1.7fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .projects-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  border: 1px solid #e5e7eb;
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.project-item:hover {
+  background: #eef2ff;
+}
+
+.project-name {
+  font-weight: 500;
+}
+
+.project-meta {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Tasks section */
+.tasks-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.task-form {
+  margin-bottom: 0.25rem;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.task-main {
+  flex: 1;
+}
+
+.task-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.task-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.15rem;
+}
+
+.task-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  align-items: center;
+}
+
+.task-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.task-status-select {
+  min-width: 150px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.badge-status-todo {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.badge-status-in_progress {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.badge-status-in_review {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-status-completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-status-cancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.badge-priority-urgent {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.badge-priority-high {
+  background: #ffedd5;
+  color: #c05621;
+}
+
+.badge-priority-medium {
+  background: #e0f2fe;
+  color: #1d4ed8;
+}
+
+.badge-priority-low {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.muted {
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+/* Dark mode overrides */
+.theme-dark {
+  background: radial-gradient(circle at top left, #020617, #020617 40%, #020617);
+  color: #e5e7eb;
+}
+
+.theme-dark .app-card {
+  background: #020617;
+  border-radius: 18px;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.8);
+}
+
+.theme-dark .card {
+  background: #020617;
+  border-color: #1f2937;
+}
+
+.theme-dark .auth-card {
+  background: #020617;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.8);
+}
+
+.theme-dark .app-subtitle,
+.theme-dark .auth-subtitle,
+.theme-dark .project-meta,
+.theme-dark .task-desc,
+.theme-dark .muted {
+  color: #9ca3af;
+}
+
+.theme-dark .app-user {
+  color: #d1d5db;
+}
+
+.theme-dark .field label {
+  color: #d1d5db;
+}
+
+.theme-dark .input,
+.theme-dark .select-input,
+.theme-dark .date-input {
+  background: #020617;
+  border-color: #334155;
+  color: #e5e7eb;
+}
+
+.theme-dark .input::placeholder,
+.theme-dark .auth-card input::placeholder {
+  color: #6b7280;
+}
+
+.theme-dark .input:focus,
+.theme-dark .select-input:focus,
+.theme-dark .date-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.35);
+}
+
+.theme-dark .task-card {
+  background: #020617;
+  border-color: #1f2937;
+}
+
+.theme-dark .app-nav {
+  border-color: #1f2937;
+}
+
+.theme-dark .app-nav-link {
+  color: #9ca3af;
+}
+
+.theme-dark .app-nav-link-active {
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.theme-dark .project-item:hover {
+  background: #111827;
+}
+
+.theme-dark .btn-ghost {
+  color: #e5e7eb;
+}
+
+.theme-dark .btn-ghost:hover {
+  background: #111827;
+}
+
+.theme-dark .btn-primary {
+  background: #6366f1;
+}
+
+.theme-dark .btn-primary:hover {
+  background: #4f46e5;
+}
+
+.theme-dark .badge-status-todo {
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.theme-dark .badge-status-in_progress {
+  background: rgba(59, 130, 246, 0.2);
+  color: #bfdbfe;
+}
+
+.theme-dark .badge-status-in_review {
+  background: rgba(251, 191, 36, 0.18);
+  color: #fde68a;
+}
+
+.theme-dark .badge-status-completed {
+  background: rgba(34, 197, 94, 0.18);
+  color: #bbf7d0;
+}
+
+.theme-dark .badge-status-cancelled {
+  background: rgba(248, 113, 113, 0.23);
+  color: #fecaca;
+}
+
+.theme-dark .badge-priority-urgent {
+  background: rgba(248, 113, 113, 0.28);
+  color: #fecaca;
+}
+
+.theme-dark .badge-priority-high {
+  background: rgba(251, 146, 60, 0.25);
+  color: #fed7aa;
+}
+
+.theme-dark .badge-priority-medium {
+  background: rgba(59, 130, 246, 0.24);
+  color: #bfdbfe;
+}
+
+.theme-dark .badge-priority-low {
+  background: #111827;
+  color: #e5e7eb;
+}
+  /* -------- Chatbot -------- */
 
 .chatbot-float {
   position: fixed;
@@ -155,10 +549,10 @@ body {
   background: #4f46e5;
   color: white;
   border: none;
-  border-radius: 999px;
+  border-radius: 50%;
   width: 55px;
   height: 55px;
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(15,23,42,0.15);
 }
@@ -166,7 +560,7 @@ body {
 .chatbot-panel {
   position: fixed;
   bottom: 90px;
-  right: 25px;
+  right: 24px;
   width: 340px;
   height: 420px;
   background: inherit;
