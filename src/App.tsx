@@ -12,6 +12,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Projects from "./pages/Projects";
 import Register from "./pages/Register";
 import ChatbotLauncher from "./components/ChatbotLauncher";
+import { Sun, Moon } from "lucide-react";
 
 interface AppContentProps {
   darkMode: boolean;
@@ -60,7 +61,7 @@ const AppContent = ({ darkMode, toggleDarkMode }: AppContentProps) => {
               className="btn btn-ghost"
               onClick={toggleDarkMode}
             >
-              {darkMode ? "Light mode" : "Dark mode"}
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </div>
         </header>

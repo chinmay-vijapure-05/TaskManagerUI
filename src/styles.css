@@ -569,6 +569,7 @@ body {
   box-shadow: 0 18px 45px rgba(15,23,42,0.12);
   display: flex;
   flex-direction: column;
+  animation: chatbotOpen 0.2s ease;
 }
 
 .chatbot-header {
@@ -652,4 +653,55 @@ body {
 
 .theme-dark .chatbot-input {
   border-color: #1f2937;
+}
+
+@media (max-width: 768px) {
+
+  .app-card {
+    padding: 1rem;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .projects-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .task-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-actions {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .chatbot-panel {
+    right: 12px;
+    bottom: 80px;
+    width: calc(100vw - 24px);
+    height: 70vh;
+  }
+
+  .chatbot-float {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+@keyframes chatbotOpen {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
