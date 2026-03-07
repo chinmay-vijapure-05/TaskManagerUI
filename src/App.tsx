@@ -11,6 +11,7 @@ import { AuthProvider, AuthContext } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Projects from "./pages/Projects";
 import Register from "./pages/Register";
+import ChatbotLauncher from "./components/ChatbotLauncher";
 
 interface AppContentProps {
   darkMode: boolean;
@@ -110,6 +111,7 @@ const AppContent = ({ darkMode, toggleDarkMode }: AppContentProps) => {
             }
           />
         </Routes>
+        <ChatbotLauncher />
       </div>
     </div>
   );
