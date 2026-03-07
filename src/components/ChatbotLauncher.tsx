@@ -6,11 +6,11 @@ const ChatbotLauncher = () => {
 
   return (
     <>
-      {open && <Chatbot onClose={() => setOpen(false)} />}
+      {open && <Chatbot />}
 
       <button
         className="chatbot-float"
-        onClick={() => setOpen(true)}
+        onClick={() => setOpen(!open)}
       >
         🤖
       </button>

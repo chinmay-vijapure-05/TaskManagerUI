@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { streamChat } from "../api/chatApi";
 
-const Chatbot = ({ onClose }: any) => {
+const Chatbot = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
   const sendMessage = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || loading) return;
 
     const userMsg = { role: "user", text: input };
     setMessages((prev) => [...prev, userMsg]);
@@ -51,8 +51,7 @@ const Chatbot = ({ onClose }: any) => {
   return (
     <div className="chatbot-panel">
       <div className="chatbot-header">
-        <span>AI Assistant</span>
-        <button onClick={onClose}>✕</button>
+        🤖 AI Assistant
       </div>
 
       <div className="chatbot-messages">
@@ -65,11 +64,23 @@ const Chatbot = ({ onClose }: any) => {
 
       <div className="chatbot-input">
         <input
+          className="input"
+          placeholder="Ask AI how to plan your tasks..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask about planning your tasks..."
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
         />
-        <button disabled={loading} onClick={sendMessage}>
+
+        <button
+          className="btn btn-primary"
+          disabled={loading}
+          onClick={sendMessage}
+        >
           Send
         </button>
       </div>
