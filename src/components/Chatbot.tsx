@@ -1,59 +1,77 @@
 import { useState } from "react";
-import axiosClient from "../api/axiosClient";
+import { streamChat } from "../api/chatApi";
 
 const Chatbot = ({ onClose }: any) => {
-  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const sendMessage = async () => {
-    if (!message.trim()) return;
+    if (!input.trim()) return;
 
-    const userMsg = { role: "user", content: message };
+    const userMsg = { role: "user", text: input };
     setMessages((prev) => [...prev, userMsg]);
 
-    setMessage("");
+    const botIndex = messages.length + 1;
+    setMessages((prev) => [...prev, { role: "bot", text: "Thinking..." }]);
+
+    const prompt = input;
+    setInput("");
+    setLoading(true);
 
     try {
-      const res = await axiosClient.post("/api/ai/chat", {
-        message: userMsg.content,
-      });
+      let firstToken = true;
 
-      const botMsg = {
-        role: "assistant",
-        content: res.data.reply,
-      };
+      await streamChat(
+        prompt,
+        (token) => {
+          setMessages((prev) => {
+            const copy = [...prev];
 
-      setMessages((prev) => [...prev, botMsg]);
+            if (firstToken) {
+              copy[botIndex] = { role: "bot", text: "" };
+              firstToken = false;
+            }
+
+            copy[botIndex].text += token;
+            return copy;
+          });
+        },
+        () => setLoading(false)
+      );
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Something went wrong." },
+        { role: "bot", text: "AI service unavailable" },
       ]);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="chatbot">
-      <div className="chat-header">
+    <div className="chatbot-panel">
+      <div className="chatbot-header">
         <span>AI Assistant</span>
         <button onClick={onClose}>✕</button>
       </div>
 
-      <div className="chat-messages">
+      <div className="chatbot-messages">
         {messages.map((m, i) => (
-          <div key={i} className={m.role}>
-            {m.content}
+          <div key={i} className={`msg ${m.role}`}>
+            {m.text}
           </div>
         ))}
       </div>
 
-      <div className="chat-input">
+      <div className="chatbot-input">
         <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Ask about your tasks..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Ask about planning your tasks..."
         />
-        <button onClick={sendMessage}>Send</button>
+        <button disabled={loading} onClick={sendMessage}>
+          Send
+        </button>
       </div>
     </div>
   );

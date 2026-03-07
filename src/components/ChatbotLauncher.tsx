@@ -9,10 +9,10 @@ const ChatbotLauncher = () => {
       {open && <Chatbot onClose={() => setOpen(false)} />}
 
       <button
-        className="chatbot-button"
+        className="chatbot-float"
         onClick={() => setOpen(true)}
       >
-        💬
+        🤖
       </button>
     </>
   );
