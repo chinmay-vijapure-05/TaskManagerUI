@@ -22,7 +22,7 @@ const Login = () => {
 
   const handleTestLogin = async () => {
     try {
-      const data = await login("docker@test.com", "password123");
+      const data = await login("prod1@test.com", "password123");
       auth?.login(data.token, data.user ?? data);
       navigate("/projects");
     } catch (error) {
