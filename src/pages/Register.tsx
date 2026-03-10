@@ -6,16 +6,23 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    setLoading(true);
+
     try {
       await register({ fullName: name, email, password });
       alert("Registration successful. Please log in.");
       navigate("/");
     } catch (error) {
       alert("Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,8 +31,16 @@ const Register = () => {
       <div className="auth-card">
         <div>
           <h2 className="auth-title">Create account</h2>
-          <p className="auth-subtitle">Sign up to start managing your tasks.</p>
+          <p className="auth-subtitle">
+            Sign up to start managing your tasks.
+          </p>
         </div>
+
+        {loading && (
+          <p className="muted">
+            ⏳ Starting server... first request may take 1–2 minutes.
+          </p>
+        )}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="field">
@@ -57,8 +72,8 @@ const Register = () => {
             <input
               id="password"
               className="input"
-              minLength={6}
               type="password"
+              minLength={6}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -68,14 +83,19 @@ const Register = () => {
             </span>
           </div>
 
-          <button className="btn btn-primary" type="submit">
-            Register
+          <button
+            className="btn btn-primary"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Registering..." : "Register"}
           </button>
 
           <button
             className="btn btn-ghost"
             type="button"
             onClick={() => navigate("/")}
+            disabled={loading}
           >
             Back to login
           </button>
