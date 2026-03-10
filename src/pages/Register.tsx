@@ -24,9 +24,7 @@ const Register = () => {
       <div className="auth-card">
         <div>
           <h2 className="auth-title">Create account</h2>
-          <p className="auth-subtitle">
-            Sign up to start managing your tasks.
-          </p>
+          <p className="auth-subtitle">Sign up to start managing your tasks.</p>
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
@@ -59,11 +57,15 @@ const Register = () => {
             <input
               id="password"
               className="input"
+              minLength={6}
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <span className="muted">
+              Password must be at least 6 characters
+            </span>
           </div>
 
           <button className="btn btn-primary" type="submit">
@@ -84,4 +86,3 @@ const Register = () => {
 };
 
 export default Register;
-
