@@ -67,34 +67,33 @@ const Register = () => {
             />
           </div>
 
-          <div className="field" style={{ position: "relative" }}>
+          <div className="field">
             <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              className="input"
-              type={showPassword ? "text" : "password"}
-              minLength={6}
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
 
-            <span
-              onClick={() => setShowPassword(!showPassword)}
-              style={{
-                position: "absolute",
-                right: "10px",
-                top: "38px",
-                cursor: "pointer",
-                userSelect: "none",
-              }}
-            >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-            </span>
+            <div style={{ position: "relative" }}>
+              <input
+                id="password"
+                className="input"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-            <span className="muted">
-              Password must be at least 6 characters
-            </span>
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  userSelect: "none",
+                }}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </span>
+            </div>
           </div>
 
           <button className="btn btn-primary" type="submit" disabled={loading}>
