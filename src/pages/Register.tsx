@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../api/authApi";
+import { Eye, EyeOff } from "lucide-react";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -31,9 +33,7 @@ const Register = () => {
       <div className="auth-card">
         <div>
           <h2 className="auth-title">Create account</h2>
-          <p className="auth-subtitle">
-            Sign up to start managing your tasks.
-          </p>
+          <p className="auth-subtitle">Sign up to start managing your tasks.</p>
         </div>
 
         {loading && (
@@ -67,27 +67,37 @@ const Register = () => {
             />
           </div>
 
-          <div className="field">
+          <div className="field" style={{ position: "relative" }}>
             <label htmlFor="password">Password</label>
             <input
               id="password"
               className="input"
-              type="password"
+              type={showPassword ? "text" : "password"}
               minLength={6}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "38px",
+                cursor: "pointer",
+                userSelect: "none",
+              }}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </span>
+
             <span className="muted">
               Password must be at least 6 characters
             </span>
           </div>
 
-          <button
-            className="btn btn-primary"
-            type="submit"
-            disabled={loading}
-          >
+          <button className="btn btn-primary" type="submit" disabled={loading}>
             {loading ? "Registering..." : "Register"}
           </button>
 

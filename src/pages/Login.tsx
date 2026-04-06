@@ -2,11 +2,13 @@ import { useState, useContext } from "react";
 import { login } from "../api/authApi";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const data = await login("prod1@test.com", "password123");
+      const data = await login("name@test.com", "myname123");
       auth?.login(data.token, data.user ?? data);
       navigate("/projects");
     } catch (error) {
@@ -68,16 +70,29 @@ const Login = () => {
             />
           </div>
 
-          <div className="field">
+          <div className="field" style={{ position: "relative" }}>
             <label htmlFor="password">Password</label>
             <input
               id="password"
               className="input"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "38px",
+                cursor: "pointer",
+                userSelect: "none",
+              }}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </span>
           </div>
 
           <button className="btn btn-primary" type="submit" disabled={loading}>
