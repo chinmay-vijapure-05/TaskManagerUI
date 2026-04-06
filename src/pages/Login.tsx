@@ -86,7 +86,8 @@ const Login = () => {
               style={{
                 position: "absolute",
                 right: "10px",
-                top: "38px",
+                top: "50%",
+                transform: "translateY(-50%)",
                 cursor: "pointer",
                 userSelect: "none",
               }}
